@@ -1,0 +1,152 @@
+{
+  "service_name": "SportShop API",
+  "base_url": "http://localhost:4000",
+  "auth": {
+    "register_path": "/api/auth/register",
+    "login_path": "/api/auth/login",
+    "me_path": "/api/auth/me",
+    "token_field": "accessToken",
+    "auth_header": "Authorization",
+    "auth_scheme": "Bearer"
+  },
+  "defaults": {
+    "admin_email": "admin@sportshop.test",
+    "admin_password": "AdminPass123!"
+  },
+  "endpoints": [
+    {
+      "name": "health",
+      "method": "GET",
+      "path": "/health",
+      "auth": "none"
+    },
+    {
+      "name": "products_list",
+      "method": "GET",
+      "path": "/api/products",
+      "auth": "none",
+      "query": {
+        "q": "ball",
+        "category": "Football",
+        "page": 1,
+        "limit": 12
+      }
+    },
+    {
+      "name": "product_get",
+      "method": "GET",
+      "path": "/api/products/{id}",
+      "auth": "none",
+      "path_params": {
+        "id": "{product_id}"
+      }
+    },
+    {
+      "name": "register",
+      "method": "POST",
+      "path": "/api/auth/register",
+      "auth": "none",
+      "json": {
+        "email": "{new_email}",
+        "password": "{new_password}"
+      }
+    },
+    {
+      "name": "login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "auth": "none",
+      "json": {
+        "email": "{email}",
+        "password": "{password}"
+      }
+    },
+    {
+      "name": "me",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "auth": "customer"
+    },
+    {
+      "name": "product_create",
+      "method": "POST",
+      "path": "/api/products",
+      "auth": "admin",
+      "json": {
+        "name": "Test Shoe",
+        "description": "Nice",
+        "category": "Running",
+        "priceCents": 1999,
+        "stock": 10,
+        "imageUrl": "https://example.com/a.png"
+      }
+    },
+    {
+      "name": "product_update",
+      "method": "PUT",
+      "path": "/api/products/{id}",
+      "auth": "admin",
+      "path_params": {
+        "id": "{product_id}"
+      },
+      "json": {
+        "name": "Test Shoe 2",
+        "description": "Nice 2",
+        "category": "Running",
+        "priceCents": 2999,
+        "stock": 8,
+        "imageUrl": "https://example.com/b.png"
+      }
+    },
+    {
+      "name": "product_delete",
+      "method": "DELETE",
+      "path": "/api/products/{id}",
+      "auth": "admin",
+      "path_params": {
+        "id": "{product_id}"
+      }
+    },
+    {
+      "name": "order_create",
+      "method": "POST",
+      "path": "/api/orders",
+      "auth": "customer",
+      "json": {
+        "items": [
+          {
+            "productId": "{product_id}",
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "orders_mine",
+      "method": "GET",
+      "path": "/api/orders/mine",
+      "auth": "customer"
+    },
+    {
+      "name": "order_get",
+      "method": "GET",
+      "path": "/api/orders/{id}",
+      "auth": "customer",
+      "path_params": {
+        "id": "{order_id}"
+      }
+    },
+    {
+      "name": "order_status",
+      "method": "PATCH",
+      "path": "/api/orders/{id}/status",
+      "auth": "admin",
+      "path_params": {
+        "id": "{order_id}"
+      },
+      "json": {
+        "status": "PAID"
+      }
+    }
+  ]
+}
